@@ -1,0 +1,13 @@
+#navbar{
+	width: 100%;
+	height: 20%;
+	background-color: black;
+	padding: 0;
+	margin: 0;
+	display: inline;
+}
+
+#navbar a{
+	display: inline;
+}
+
