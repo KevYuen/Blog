@@ -1,0 +1,17 @@
+#content{
+	padding-top: 65px;
+}
+
+#post{
+	float: right;
+}
+
+#body{
+	height: 400px;
+	width: 80%
+}
+
+#post-button{
+	float: left;
+	padding-top: 10px;
+}
