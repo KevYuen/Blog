@@ -3,7 +3,8 @@ var mongoose = require('mongoose'),
 
 var me = new Schema({
 	name: String,
-	age: Number,
 	description: String,
 	pictureUrl: String
-})
+});
+
+module.exports = mongoose.model('Me', me);

@@ -6,12 +6,11 @@
 	float: right;
 }
 
-#body{
+#body, #description{
 	height: 400px;
 	width: 80%
 }
 
-#post-button{
-	float: left;
-	padding-top: 10px;
+#posts-list{
+	list-style-type: none;
 }

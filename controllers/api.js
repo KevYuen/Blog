@@ -31,8 +31,9 @@ exports.savePost = function(req, res){
 	});
 }
 
+//About me Info
 exports.getMe = function(req, res){
-	Me.find({}, function(err, Me){
+	Me.findOne({}, function(err, Me){
 		if(err) res.send({error: err});
 		res.send({Me: Me});
 	});
@@ -41,11 +42,25 @@ exports.getMe = function(req, res){
 exports.editMe = function(req, res){
 	var editedInfo = new Me;
 	editedInfo.name = req.body.name;
-	editedInfo.age = req.body.age;
-	editedInfo.description = req.body.pictureUrl;
+	editedInfo.description = req.body.description;
 	editedInfo.pictureUrl = req.body.pictureUrl;
 
-	editedInfo.save(function(err, info){
+	var upsertData = editedInfo.toObject();
 
-	})
+	// Delete the _id property, otherwise Mongo will return a "Mod on _id not allowed" error
+	delete upsertData._id;
+
+	//console.log(editedInfo);
+	Me.update({}, upsertData, {upsert: true}, function(err){
+		if (err) res.send({error: err});
+		res.send({received: 'ok'});
+	});
+}
+
+exports.getPostDetail = function(req, res){
+	var id = req.params.id;
+	Post.find({_id: id}, function(err, post){
+		if (err) res.send({error:err});
+		res.send({post:post});
+	});
 }

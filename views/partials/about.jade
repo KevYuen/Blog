@@ -1,7 +1,7 @@
 h3 about page
-img(src={{me.pictureUrl}})
+img(ng-src='{{me.pictureUrl}}')
 h2 {{me.name}}
 p {{me.age}}
-p {{me.description}}
+p(ng-bind-html-unsafe='me.description')
 
-button(type="button", class="btn btn-Secondary")
+a(href="/#/about/edit", class="btn btn-Secondary") Edit Info

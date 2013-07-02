@@ -4,10 +4,12 @@ var express = require('express'),
   routes = require('./controllers/routes.js'),
   app = module.exports = express();
  
-mongoose.connect('mongodb://0a8a8201-6547-48d5-8a4e-e2c9338dc702:414a558e-f0c2-4012-8f66-91ddd10ad6e3@10.0.5.80:26074/db');
- 
+//mongoose.connect('mongodb://0a8a8201-6547-48d5-8a4e-e2c9338dc702:414a558e-f0c2-4012-8f66-91ddd10ad6e3@10.0.5.80:26074/db');
+mongoose.connect('mongodb://localhost/KevBlog');
+
 //authentication
-var auth = express.basicAuth(process.env.USERNAME, process.env.PASSWORD);
+//var auth = express.basicAuth(process.env.USERNAME, process.env.PASSWORD);
+var auth = express.basicAuth("admin", "Welcome123");
 
 //cors middleware
 var allowCrossDomain = function(req, res, next) {
@@ -38,7 +40,10 @@ app.get('/partials/:name', routes.partials);
 
 //api calls
 app.get('/api/post', api.getPost);
-app.post('/api/post', auth,  api.savePost);
+app.get('/api/me', api.getMe);
+app.get('/api/post/:id', api.getPostDetail)
+app.put('/api/me', auth, api.editMe);
+app.post('/api/post', auth, api.savePost);
 
 app.listen(3000);
 console.log('Express server listening on port 3000');

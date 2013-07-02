@@ -14,18 +14,18 @@ block body
 						ul(class='nav')
 							li 
 								a(href='/#/about') About
-							li
-								a(href='/#/contact') Contact
 						ul(class='nav pull-right')
 							li(id='post')
-								a(href='/#/post') New Post
+								a(href='/#/post/create') New Post
 
 	div(class='container', id='content', ng-view)
+	div(angular-modal)
 
 	script(src='resources/js/property.js')
 	script(src='resources/components/angular/angular.min.js')
 	script(src='resources/components/jquery/jquery.min.js')
 	script(src='resources/js/router.js')
+	script(src='/resources/js/angular-modal.js')
 	script(src='resources/js/controller.js')
 	script(src="/resources/components/bootstrap/docs/assets/js/bootstrap.min.js")
 	script(src="/resources/components/bootstrap/docs/assets/js/bootstrap-dropdown.js")
