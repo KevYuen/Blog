@@ -23,9 +23,12 @@ block body
 	div(class='container', id='content', ng-view)
 	div(angular-modal)
 
+	script(type='text/javascript')
+		window.disqus_shortname = "dinocowblog";
+
 	script(src='resources/js/property.js')
+	script(src='resources/components/jquery/jquery-1.10.2.min.js')
 	script(src='resources/components/angular/angular.min.js')
-	script(src='resources/components/jquery/jquery.min.js')
 	script(src='resources/js/router.js')
 	script(src='/resources/js/angular-modal.js')
 	script(src='resources/js/controller.js')
@@ -34,3 +37,5 @@ block body
 	script(src="/resources/components/bootstrap/js/bootstrap-dropdown.js")
 	script(src="/resources/components/bootstrap/js/wysihtml5-0.3.0_rc2.min.js")
 	script(src="/resources/components/bootstrap/js/bootstrap-wysihtml5-0.0.2.min.js")
+	script(src='//platform.linkedin.com/in.js', type='text/javascript')
+

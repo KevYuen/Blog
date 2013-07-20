@@ -121,7 +121,7 @@ function EditInfoCtrl($scope, $rootScope, $location, $http){
 
 function PostDetailCtrl($scope, $routeParams, $http){
 	var reqURL = property.url + '/api/post/' + $routeParams.id;
-
+	
 	$http.get(reqURL).
 	success(function(data){
 		data.post[0].date = new Date(data.post[0].date).toDateString();
