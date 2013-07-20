@@ -4,9 +4,9 @@ angular.module('BLOG', []).
   $routeProvider.
       when('/post', {templateUrl: 'partials/postList', controller: PostListCtrl}).
       when('/about', {templateUrl: 'partials/about', controller: GetMeCtrl}).
-      when('/about/edit', {templateUrl:'partials/editInfo', controller: EditInfoCtrl}).
-      when('/post/create', {templateUrl:'partials/post', controller: SummitPostCtrl}).
-      when('/post/:id', {templateUrl:'partials/postDetail', controller: PostDetailCtrl}).
+      when('/about/edit', {templateUrl:'partials/secure/editInfo', controller: EditInfoCtrl}).
+      when('/post/create', {templateUrl:'partials/secure/post', controller: SummitPostCtrl}).
+      when('/post/:id/:title', {templateUrl:'partials/postDetail', controller: PostDetailCtrl}).
       otherwise({redirectTo: '/post'})
   }]).
       config(['$httpProvider', function($httpProvider) {

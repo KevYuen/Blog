@@ -37,13 +37,14 @@ var api = require('./controllers/api.js');
 //routes
 app.get('/', routes.index);
 app.get('/partials/:name', routes.partials);
+app.get('/partials/secure/:name', auth, routes.securePartials);
 
 //api calls
 app.get('/api/post', api.getPost);
 app.get('/api/me', api.getMe);
-app.get('/api/post/:id', api.getPostDetail)
-app.put('/api/me', auth, api.editMe);
-app.post('/api/post', auth, api.savePost);
+app.get('/api/post/:id', api.getPostDetail);
+app.put('/api/me', api.editMe);
+app.post('/api/post', api.savePost);
 
 app.listen(3000);
 console.log('Express server listening on port 3000');

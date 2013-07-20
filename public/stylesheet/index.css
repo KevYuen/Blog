@@ -14,3 +14,11 @@
 #posts-list{
 	list-style-type: none;
 }
+
+.large-font{
+	font-size: 25px;
+}
+
+.top-margin{
+	margin-top: 10px;
+}
