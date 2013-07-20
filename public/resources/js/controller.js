@@ -1,5 +1,5 @@
 //controller for /
-function PostListCtrl($scope, $http){
+function PostListCtrl($scope, $http, $rootScope, $location){
 	var reqURL = property.url + '/api/post';
 
 	$http.get(reqURL).
@@ -15,8 +15,27 @@ function PostListCtrl($scope, $http){
 		console.log(data);
 	});
 
-	$scope.DeletePost = function(id){
-		var reqURL = property.url + '/api/post' + id;
+	$scope.DeletePost = function($event, id){
+		var reqURL = property.url + '/api/post/' + id;
+		$http({
+        	    url: reqURL,
+           		method: "DELETE",
+            })
+			.success(function (data, status, headers, config) {
+            	$rootScope.$broadcast('showModal', {
+ 					title: 'Success', 
+    				message: 'Post Deleted', 
+   					alert: 'Success'
+					});
+            	$location.path('#');
+        		})
+        	.error(function (data, status, headers, config) {
+        		$rootScope.$broadcast('showModal', {
+   					title: 'Error', 
+   					message: status, 
+    				alert: 'error'
+				});
+        	});
 	}
 }
 
@@ -47,7 +66,7 @@ function SummitPostCtrl($scope, $rootScope, $location, $http){
     				message: 'Post Saved', 
    					alert: 'Success'
 					});
-            	console.log(redirection);
+            	
             	$location.path(redirection);
         		})
         	.error(function (data, status, headers, config) {
@@ -74,6 +93,15 @@ function GetMeCtrl($scope, $http){
 	}).
 	error(function(data){
 		console.log(data);
+	});
+
+	$scope.$on('$viewContentLoaded', function(){
+		!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+		(function() {
+					var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+					po.src = 'https://apis.google.com/js/plusone.js';
+					var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+				})();
 	});
 }
 
@@ -123,8 +151,13 @@ function EditInfoCtrl($scope, $rootScope, $location, $http){
     }
 }
 
-function PostDetailCtrl($scope, $routeParams, $http){
+function PostDetailCtrl($scope, $routeParams, $location, $http){
 	var reqURL = property.url + '/api/post/' + $routeParams.id;
+
+	$scope.$on('$viewContentLoaded', function() {
+		var currentPageId = $location.path();
+		loadDisqus(currentPageId);
+	});
 
 	$http.get(reqURL).
 	success(function(data){
@@ -136,7 +169,7 @@ function PostDetailCtrl($scope, $routeParams, $http){
 	});
 }
 
-function PortfolioListCtrl($scope, $http){
+function PortfolioListCtrl($scope, $http, $rootScope, $location){
 	var reqURL = property.url + '/api/portfolio';
 
 	$http.get(reqURL).
@@ -147,17 +180,61 @@ function PortfolioListCtrl($scope, $http){
 	error(function(data){
 		console.log(data);
 	});
+
+	$scope.DeletePortfolioItem = function($event, id){
+		var reqURL = property.url + '/api/portfolio/' + id;
+		$http({
+        	    url: reqURL,
+           		method: "DELETE",
+            })
+			.success(function (data, status, headers, config) {
+            	$rootScope.$broadcast('showModal', {
+ 					title: 'Success', 
+    				message: 'Portfolio Item Deleted', 
+   					alert: 'Success'
+				});
+            	$location.path("/portfolio");
+        	})
+        	.error(function (data, status, headers, config) {
+        		$rootScope.$broadcast('showModal', {
+   					title: 'Error', 
+   					message: status, 
+    				alert: 'error'
+				});
+        	});
+	}
 }
 
-function PortfolioDetailCtrl($scope, $http, $routeParams){
-		var reqURL = property.url + '/api/portfolio/' + $routeParams.id;
-
+function PortfolioDetailCtrl($scope, $http, $location, $routeParams){
+	var reqURL = property.url + '/api/portfolio/' + $routeParams.id;
+	
+	$scope.$on('$viewContentLoaded', function() {
+		var currentPageId = $location.path();
+		loadDisqus(currentPageId);
+	});
+	
 	$http.get(reqURL).
 	success(function(data){
-		$scope.post = data.portfolioItem[0];
+		$scope.portfolioItem = data.portfolioItem[0];
 	}).
 	error(function(data){
 		console.log(data);
 	});
 
 }
+
+function loadDisqus(currentPageId) {
+    // http://docs.disqus.com/help/2/
+    window.disqus_shortname = 'dinocowblog';
+    window.disqus_identifier = currentPageId;
+    window.disqus_url = property.url + '/' + currentPageId;
+
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] ||
+        document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    angular.element(document.getElementById('disqus_thread')).html('');
+ }

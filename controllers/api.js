@@ -144,13 +144,20 @@ exports.deletePost = function(req, res){
 	var id = req.params.id;
 	Post.remove({_id: id}, function(err, DeletedItem){
 		if(err) res.send({error:err});
-		res.send({received: ok});
+		res.send({received: 'ok'});
 	});
 }
 
 /*
- * Remove the document of the post specified by id
+ * Remove the document of the portfolioItem specified by id
  * Delete- /api/post/:id
  * send: id in URL
  * receive: {recevied: ok}
  */
+ exports.deletePortfolioItem = function(req, res){
+ 	var id = req.params.id;
+ 	PortfolioItem.remove({_id: id}, function(err, DeletedItem){
+ 		if (err) res.send({error: err});
+ 		res.send({received:'ok'});
+ 	});
+ }

@@ -43,13 +43,15 @@ app.get('/partials/secure/:name', auth, routes.securePartials);
 app.get('/api/post', api.getPost);
 app.put('/api/post', auth, api.savePost);
 app.get('/api/post/:id', api.getPostDetail);
+app.del('/api/post/:id', auth, api.deletePost);
 
 app.get('/api/me', api.getMe);
 app.put('/api/me', auth, api.editMe);
 
 app.get('/api/portfolio', api.getPortfolioItems);
 app.put('/api/portfolio', api.savePortfolioItem);
-app.get('/api.portfolio/:id', api.getPortfolioItem);
+app.get('/api/portfolio/:id', api.getPortfolioItem);
+app.del('/api/portfolio/:id', auth, api.deletePortfolioItem);
 
 app.listen(3000);
 console.log('Express server listening on port 3000');

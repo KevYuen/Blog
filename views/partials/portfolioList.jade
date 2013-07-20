@@ -4,5 +4,8 @@ ul(id='portfolio-list')
 			span(class='large-font') {{portfolioItem.title}}
 
 		p(class='top-margin', ng-bind-html-unsafe="portfolioItem.description")
-
+		ul(class='pull-right')
+			button(class='edit-btn btn btn-danger btn-mini', ng-click="DeletePortfolioItem($event, portfolioItem._id)") Delete
+			a(class='edit-btn btn btn-mini btn btn btn-primary', href='') Edit
+		br
 		hr
