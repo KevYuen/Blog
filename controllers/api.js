@@ -1,9 +1,10 @@
 var Post = require('../models/post.js'),
-	Me = require('../models/me.js');
+	Me = require('../models/me.js'),
+	PortfolioItem = require('../models/portfolioItem.js');
 
 /*
  * Get all game:
- * - host- /api/post
+ * - Get- /api/post
  * - send: nothing
  * - receive: { "passkey": "some string" }
 */
@@ -15,6 +16,12 @@ exports.getPost = function(req, res){
 	});
 }
 
+/*
+ * Save a Post
+ * Put - /api/post
+ * send: {title: String, body: string, hidden: bool}
+ * receive: {received: ok}
+ */
 exports.savePost = function(req, res){
 	var post = new Post;
 	
@@ -31,7 +38,12 @@ exports.savePost = function(req, res){
 	});
 }
 
-//About me Info
+/*
+ * Get about me info
+ * Get - /api/me
+ * send: Nothing
+ * receive: {Me: info}
+ */
 exports.getMe = function(req, res){
 	Me.findOne({}, function(err, Me){
 		if(err) res.send({error: err});
@@ -39,6 +51,12 @@ exports.getMe = function(req, res){
 	});
 }
 
+/*
+ * Update aboutme
+ * Put - /api/me
+ * send: {name: String, description: string, pictureUrl: string}
+ * receive: {received: ok}
+ */
 exports.editMe = function(req, res){
 	var editedInfo = new Me;
 	editedInfo.name = req.body.name;
@@ -57,10 +75,61 @@ exports.editMe = function(req, res){
 	});
 }
 
+/*
+ * Get detail of one post
+ * Get- /api/post/:id/
+ * send: id in URL
+ * receive: {post: postinfo}
+ */
 exports.getPostDetail = function(req, res){
 	var id = req.params.id;
 	Post.find({_id: id}, function(err, post){
 		if (err) res.send({error:err});
 		res.send({post:post});
+	});
+}
+
+/*
+ *Get all PortfolioItems
+ * Get - /api/portfolio/
+ * send: nothing
+ * receive: {portfolioItems:[{name:string, description: string}] }
+ */
+exports.getPortfolioItems = function(req, res){
+	PortfolioItem.find({}).sort({date:-1}).exec(function(err, allItems){
+		if (err) res.send({error:err});
+		res.send({portfolioItems: allItems});
+	});
+}
+
+/*
+ * Save a PortfolioItem
+ * Put - /api/portfolio/
+ * send: {title: String, description: string}
+ * receive: {received: ok}
+ */
+exports.savePortfolioItem = function(req, res){
+	var newPortItem = new PortfolioItem;
+	newPortItem.title = req.body.title;
+	newPortItem.description = req.body.description;
+
+	newPortItem.save(function(err, newItems){
+		if(err) res.send({error:err});
+		res.send({received: "ok"});
+	});
+}
+
+
+/*
+ * Get detail of one PortfolioItem
+ * Get- /api/portfolio/:id/
+ * send: id in URL
+ * receive: {portfolioItem: ItemInfo}
+ */
+exports.getPortfolioItem = function(req, res){
+	var id = req.params.id;
+	PortfolioItem.find({_id: id}, function(err, ItemInfo){
+		if (err) res.send({error:err});
+		res.send({portfolioItem:ItemInfo});
 	});
 }

@@ -17,34 +17,40 @@ function PostListCtrl($scope, $http){
 }
 
 function SummitPostCtrl($scope, $rootScope, $location, $http){
-	var reqURL = property.url + '/api/post';
+	$scope.postType = 'post';
 
 	$scope.addPost = function(){
 		var body = $('#body').val();
-		//console.log(body);
-		var data = $.param({title: $scope.title, body: body, author: "DinoCow", hidden: "false"});
-		$http({
-            url: reqURL,
-            method: "POST",
-            data: data,
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        	})
-		.success(function (data, status, headers, config) {
-            $rootScope.$broadcast('showModal', {
- 				title: 'Success', 
-    			message: 'Post Saved', 
-   				alert: 'Success'
+		if ($scope.postType == post){
+			var reqURL = property.url + '/api/post';
+			var data = $.param({title: $scope.title, body: body, author: "DinoCow", hidden: "false"});
+		}else{
+			var reqURL = property.url + '/api/portfolio';
+			var data = $.param({title: $scope.title, description: body});
+		}
+			
+			$http({
+        	    url: reqURL,
+           		method: "PUT",
+				data: data,
+            	headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        		})
+			.success(function (data, status, headers, config) {
+            	$rootScope.$broadcast('showModal', {
+ 					title: 'Success', 
+    				message: 'Post Saved', 
+   					alert: 'Success'
+					});
+            	$location.path('#');
+        		})
+        	.error(function (data, status, headers, config) {
+        		$rootScope.$broadcast('showModal', {
+   					title: 'Error', 
+   					message: status, 
+    				alert: 'error'
 				});
-            $location.path('#');
-        	})
-        .error(function (data, status, headers, config) {
-        	$rootScope.$broadcast('showModal', {
-   				title: 'Error', 
-   				message: status, 
-    			alert: 'error'
-			});
-        });
-	}
+        	});
+		}
 
 	$scope.$on('$viewContentLoaded', function(){
 		$('#body').wysihtml5();
@@ -122,3 +128,18 @@ function PostDetailCtrl($scope, $routeParams, $http){
 		console.log(data);
 	});
 }
+
+function PortfolioListCtrl($scope, $http){
+	var reqURL = property.url + '/api/portfolio';
+
+	$http.get(reqURL).
+	success(function(data){
+		$scope.portfolioItems = data.portfolioItems;
+		//console.log(data);
+	}).
+	error(function(data){
+		console.log(data);
+	});
+}
+
+function PortfolioDetailCtrl($scope, $http, $routeParams){}

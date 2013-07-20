@@ -1,7 +1,17 @@
 form(name='add-form', data-ng-submit='addPost()')
-	p Title:
+	div(class="pull-right radio-buttons")
+		label.radio.inline
+			input(type='radio', ng-model='postType', value='post')
+			| Post
+		label.radio.inline
+			input(type='radio', ng-model='postType', value='portfolio') 
+			| Portfolio
+	span Title: 
+	br
 	input(type='text', data-ng-model='title', id='title', required)
-	p Body:
+	br
+	span Body:
+	br
 	textarea(placeholder="Enter text ...", id='body', required) 
 	br
 	button(type='submit', class='btn btn-primary', id='post-button') Post

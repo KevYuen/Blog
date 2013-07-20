@@ -7,6 +7,8 @@ angular.module('BLOG', []).
       when('/about/edit', {templateUrl:'partials/secure/editInfo', controller: EditInfoCtrl}).
       when('/post/create', {templateUrl:'partials/secure/post', controller: SummitPostCtrl}).
       when('/post/:id/:title', {templateUrl:'partials/postDetail', controller: PostDetailCtrl}).
+      when('/portfolio',{templateUrl:'partials/portfolioList', controller: PortfolioListCtrl}).
+      when('/portfolio/:id/:title', {templateUrl: 'partials/portfolioDetail', controller: PortfolioDetailCtrl}).
       otherwise({redirectTo: '/post'})
   }]).
       config(['$httpProvider', function($httpProvider) {

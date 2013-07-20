@@ -11,8 +11,10 @@
 	width: 80%
 }
 
-#posts-list{
+#posts-list, #portfolio-list{
 	list-style-type: none;
+	padding:0;
+	margin:0;
 }
 
 .large-font{
@@ -21,4 +23,9 @@
 
 .top-margin{
 	margin-top: 10px;
+}
+
+.radio-buttons{
+	margin-right:200px;
+	margin-top:30px;
 }
