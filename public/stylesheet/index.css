@@ -33,3 +33,27 @@
 #disqus_thread{
 	margin-top: 50px;
 }
+
+.left-margin{
+	margin-left: 10px;
+}
+
+.twitter-button{
+	margin-top: 20px;
+}
+.plugins{
+	margin-right: 30px;
+	display:inline;
+}
+
+#plugin-btns{
+	margin-top: 10px;
+	margin-left: 30px;
+	display:inline;
+	list-style-type: none;
+
+}
+
+.edit-btn{
+	margin-left: 10px;
+}

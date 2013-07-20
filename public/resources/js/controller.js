@@ -14,6 +14,10 @@ function PostListCtrl($scope, $http){
 	error(function(data){
 		console.log(data);
 	});
+
+	$scope.DeletePost = function(id){
+		var reqURL = property.url + '/api/post' + id;
+	}
 }
 
 function SummitPostCtrl($scope, $rootScope, $location, $http){
@@ -121,7 +125,7 @@ function EditInfoCtrl($scope, $rootScope, $location, $http){
 
 function PostDetailCtrl($scope, $routeParams, $http){
 	var reqURL = property.url + '/api/post/' + $routeParams.id;
-	
+
 	$http.get(reqURL).
 	success(function(data){
 		data.post[0].date = new Date(data.post[0].date).toDateString();
@@ -145,4 +149,15 @@ function PortfolioListCtrl($scope, $http){
 	});
 }
 
-function PortfolioDetailCtrl($scope, $http, $routeParams){}
+function PortfolioDetailCtrl($scope, $http, $routeParams){
+		var reqURL = property.url + '/api/portfolio/' + $routeParams.id;
+
+	$http.get(reqURL).
+	success(function(data){
+		$scope.post = data.portfolioItem[0];
+	}).
+	error(function(data){
+		console.log(data);
+	});
+
+}

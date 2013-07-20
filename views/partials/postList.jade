@@ -8,5 +8,8 @@ ul(id='posts-list')
 			span(class='pull-right') {{post.author}}
 
 		p(class='top-margin', ng-bind-html-unsafe="post.body")
-		
+		br
+		ul(class='pull-right')
+			a(class='edit-btn', ng-click="DeletePost({{post._id}})") Delete
+			a(class='edit-btn', href='') Edit
 		hr

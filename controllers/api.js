@@ -133,3 +133,24 @@ exports.getPortfolioItem = function(req, res){
 		res.send({portfolioItem:ItemInfo});
 	});
 }
+
+/*
+ * Remove the document of the post specified by id
+ * Delete- /api/post/:id
+ * send: id in URL
+ * receive: {recevied: ok}
+ */
+exports.deletePost = function(req, res){
+	var id = req.params.id;
+	Post.remove({_id: id}, function(err, DeletedItem){
+		if(err) res.send({error:err});
+		res.send({received: ok});
+	});
+}
+
+/*
+ * Remove the document of the post specified by id
+ * Delete- /api/post/:id
+ * send: id in URL
+ * receive: {recevied: ok}
+ */
