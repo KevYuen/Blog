@@ -21,12 +21,14 @@ function SummitPostCtrl($scope, $rootScope, $location, $http){
 
 	$scope.addPost = function(){
 		var body = $('#body').val();
-		if ($scope.postType == post){
+		if ($scope.postType == "post"){
 			var reqURL = property.url + '/api/post';
 			var data = $.param({title: $scope.title, body: body, author: "DinoCow", hidden: "false"});
+			var redirection = '#';
 		}else{
 			var reqURL = property.url + '/api/portfolio';
 			var data = $.param({title: $scope.title, description: body});
+			var redirection = '/portfolio'
 		}
 			
 			$http({
@@ -41,7 +43,8 @@ function SummitPostCtrl($scope, $rootScope, $location, $http){
     				message: 'Post Saved', 
    					alert: 'Success'
 					});
-            	$location.path('#');
+            	console.log(redirection);
+            	$location.path(redirection);
         		})
         	.error(function (data, status, headers, config) {
         		$rootScope.$broadcast('showModal', {
