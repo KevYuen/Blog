@@ -4,12 +4,12 @@ var express = require('express'),
   routes = require('./controllers/routes.js'),
   app = module.exports = express();
  
-//mongoose.connect('mongodb://0a8a8201-6547-48d5-8a4e-e2c9338dc702:414a558e-f0c2-4012-8f66-91ddd10ad6e3@10.0.5.80:26074/db');
-mongoose.connect('mongodb://localhost/KevBlog');
+mongoose.connect(process.env.Mongo);
+//mongoose.connect('mongodb://localhost/KevBlog');
 
 //authentication
-//var auth = express.basicAuth(process.env.USERNAME, process.env.PASSWORD);
-var auth = express.basicAuth("admin", "Welcome123");
+var auth = express.basicAuth(process.env.USERNAME, process.env.PASSWORD);
+//var auth = express.basicAuth("admin", "Welcome123");
 
 //cors middleware
 var allowCrossDomain = function(req, res, next) {
