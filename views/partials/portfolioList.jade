@@ -1,0 +1,8 @@
+ul(id='portfolio-list')
+	li(ng-repeat='portfolioItem in portfolioItems')
+		a(href='/#/portfolio/{{portfolioItem._id}}/{{portfolioItem.title}}') 
+			span(class='large-font') {{portfolioItem.title}}
+
+		p(class='top-margin', ng-bind-html-unsafe="portfolioItem.description")
+
+		hr
