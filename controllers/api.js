@@ -38,6 +38,7 @@ exports.savePost = function(req, res){
 	});
 }
 
+
 /*
  * Get about me info
  * Get - /api/me
@@ -161,3 +162,29 @@ exports.deletePost = function(req, res){
  		res.send({received:'ok'});
  	});
  }
+
+ /*
+ * Edit post
+ * Put - /api/post/:id
+ * send: {title: String, body: string, hidden: bool}
+ * receive: {received: ok}
+ */
+exports.editPost = function(req, res){
+	Post.update({_id: req.params.id}, {title:req.body.title, body: req.body.body }, {upsert: false}, function(err){
+		if (err) res.send({error: err});
+		res.send({received: 'ok'});
+	});
+}
+
+ /*
+ * Edit Portfolio Item
+ * Put - /api/portfolio/:id
+ * send: {title: String, description: string}
+ * receive: {received: ok}
+ */
+exports.editPortfolioItem = function(req, res){
+	PortfolioItem.update({_id: req.params.id},{title: req.body.title, description: req.body.description} , {upsert: false}, function(err){
+		if (err) res.send({error: err});
+		res.send({received: 'ok'});
+	});
+}

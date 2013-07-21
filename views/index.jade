@@ -9,15 +9,21 @@ block body
 						span(class="icon-bar")
 						span(class="icon-bar")
 						span(class="icon-bar")
-					a(class="brand", href="#") KevBlog
+					a(class="brand", href="#") DinoCow
 					div(class='nav-collapse')
 						ul(class='nav')
 							li 
 								a(href='/#/about') About
 							li 
 								a(href='/#/portfolio') Portfolio
-							li
-								a(href='/#/post/create') Edit
+							li(class="dropdown")
+								a(class="dropdown-toggle", data-toggle="dropdown",href="#") Edit
+									b(class="caret")
+								ul(class="dropdown-menu")
+									li
+										a(href='/#/post/create') Create
+									li 
+										a(href="/#/about/edit") Edit About
 
 	div(class='container', id='content', ng-view)
 	div(angular-modal)

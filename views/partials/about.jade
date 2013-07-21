@@ -1,18 +1,16 @@
-h3 About Me
-
 div(class='pull-right')
 	img(id='profile-picture', width="300", height="260",class='thumbnail pull-left small', ng-src='{{me.pictureUrl}}')
 	br
 	ul(id="plugin-btns", class=' left-margin')
-		li(class ='plugins')
-			script(type="IN/MemberProfile", data-id="http://www.linkedin.com/pub/kevin-yuen/1b/2a5/877", data-format="hover", data-related="false")
-		li(class='plugins twitter-button')
-			a.twitter-follow-button(href='https://twitter.com/Yuenkevon', data-show-count='false', data-show-screen-name='false') Follow @Yuenkevon
-		li(class='plugins')
-			.g-follow( data-height='15', data-href='//plus.google.com/117752229043831363991', data-rel='author')
-				
+		li
+			a(href="https://twitter.com/Yuenkevon")
+				img(class='plugins', src="resources/images/twitter-bird-white-on-blue.png")
+		li
+			a(href='http://www.linkedin.com/pub/kevin-yuen/1b/2a5/877')
+				img(class="plugins", src="resources/images/LinkedIn-Logo-02.png")
+		li 
+			a(href='https://github.com/DinoCow')
+				img(class="plugins", src="resources/images/github.png")
 
 h2 {{me.name}}
-p {{me.age}}
-p(ng-bind-html-unsafe='me.description')
-a(href="/#/about/edit", class="top-margin btn btn-Secondary pull-left") Edit Info
+p(id="about-text", ng-bind-html-unsafe='me.description')

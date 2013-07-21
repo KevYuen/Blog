@@ -7,10 +7,10 @@ ul(id='posts-list')
 			br
 			span(class='pull-right') {{post.author}}
 
-		p(class='top-margin', ng-bind-html-unsafe="post.body")
+		p(class='top-margin post-body', ng-bind-html-unsafe="post.body")
 		br
 		ul(class='pull-right')
 			button(class='edit-btn btn btn-danger btn-mini', ng-click="DeletePost($event, post._id)") Delete
-			a(class='edit-btn btn btn-mini btn btn btn-primary', href='') Edit
+			a(class='edit-btn btn btn-mini btn btn btn-primary', href='/#/post/{{post._id}}/{{post.name}}/edit') Edit
 		br
 		hr

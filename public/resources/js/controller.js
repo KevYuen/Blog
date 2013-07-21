@@ -56,7 +56,7 @@ function SummitPostCtrl($scope, $rootScope, $location, $http){
 			
 			$http({
         	    url: reqURL,
-           		method: "PUT",
+           		method: "POST",
 				data: data,
             	headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         		})
@@ -94,15 +94,6 @@ function GetMeCtrl($scope, $http){
 	error(function(data){
 		console.log(data);
 	});
-
-	$scope.$on('$viewContentLoaded', function(){
-		!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
-		(function() {
-					var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-					po.src = 'https://apis.google.com/js/plusone.js';
-					var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-				})();
-	});
 }
 
 function EditInfoCtrl($scope, $rootScope, $location, $http){
@@ -139,7 +130,7 @@ function EditInfoCtrl($scope, $rootScope, $location, $http){
     			message: 'Post Saved', 
    				alert: 'Success'
 				});
-            $location.path('/#/about');
+            $location.path('/about');
         	})
         .error(function (data, status, headers, config) {
         	$rootScope.$broadcast('showModal', {
@@ -220,7 +211,98 @@ function PortfolioDetailCtrl($scope, $http, $location, $routeParams){
 	error(function(data){
 		console.log(data);
 	});
+}
 
+
+function EditPostCtrl($scope, $http, $location, $routeParams, $rootScope){
+	var reqURL = property.url + '/api/post/' + $routeParams.id;
+
+	$scope.$on('$viewContentLoaded', function(){
+		$('#description').wysihtml5();
+		$http.get(reqURL).
+			success(function(data){
+			$scope.name = data.post[0].title,
+			$('#description').data("wysihtml5").editor.setValue(data.post[0].body);
+		}).
+		error(function(data){
+			console.log(data);
+		});
+	});
+
+	
+
+	$scope.saveInfo = function(){
+		var description = $('#description').val();
+		//console.log(body);
+		var data = $.param({title: $scope.title, body: description, hidden: false});
+		$http({
+            url: reqURL,
+            method: "PUT",
+            data: data,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        	})
+		.success(function (data, status, headers, config) {
+            $rootScope.$broadcast('showModal', {
+ 				title: 'Success', 
+    			message: 'Post Saved', 
+   				alert: 'Success'
+				});
+            $location.path('#');
+        	})
+        .error(function (data, status, headers, config) {
+        	$rootScope.$broadcast('showModal', {
+   				title: 'Error', 
+   				message: status, 
+    			alert: 'error'
+			});
+        });
+    }
+}
+
+
+function EditPortfolioCtrl($scope, $http, $location, $rootScope, $routeParams){
+var reqURL = property.url + '/api/portfolio/' + $routeParams.id;
+
+	$scope.$on('$viewContentLoaded', function(){
+		$('#description').wysihtml5();
+		$http.get(reqURL).
+			success(function(data){
+			$scope.name = data.portfolioItem[0].title,
+			$('#description').data("wysihtml5").editor.setValue(data.portfolioItem[0].description);
+		}).
+		error(function(data){
+			console.log(data);
+		});
+	});
+
+	
+
+	$scope.saveInfo = function(){
+		var description = $('#description').val();
+		//console.log(body);
+		var data = $.param({title: $scope.name, description: description});
+		$http({
+            url: reqURL,
+            method: "PUT",
+            data: data,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        	})
+		.success(function (data, status, headers, config) {
+            $rootScope.$broadcast('showModal', {
+ 				title: 'Success', 
+    			message: 'Portfolio Item Saved', 
+   				alert: 'Success'
+				});
+            $location.path('/portfolio');
+        	})
+        .error(function (data, status, headers, config) {
+        	$rootScope.$broadcast('showModal', {
+   				title: 'Error', 
+   				message: status, 
+    			alert: 'error'
+			});
+        });
+    }
 }
 
 function loadDisqus(currentPageId) {

@@ -4,12 +4,12 @@ var express = require('express'),
   routes = require('./controllers/routes.js'),
   app = module.exports = express();
  
-//mongoose.connect(process.env.Mongo);
-mongoose.connect('mongodb://localhost/KevBlog');
+mongoose.connect(process.env.Mongo);
+//mongoose.connect('mongodb://localhost/KevBlog');
 
 //authentication
-//var auth = express.basicAuth(process.env.USERNAME, process.env.PASSWORD);
-var auth = express.basicAuth("admin", "Welcome123");
+var auth = express.basicAuth(process.env.USERNAME, process.env.PASSWORD);
+//var auth = express.basicAuth("admin", "Welcome123");
 
 //cors middleware
 var allowCrossDomain = function(req, res, next) {
@@ -41,17 +41,19 @@ app.get('/partials/secure/:name', auth, routes.securePartials);
 
 //api calls
 app.get('/api/post', api.getPost);
-app.put('/api/post', auth, api.savePost);
+app.post('/api/post', auth, api.savePost);
 app.get('/api/post/:id', api.getPostDetail);
 app.del('/api/post/:id', auth, api.deletePost);
+app.put('/api/post/:id', auth, api.editPost);
 
 app.get('/api/me', api.getMe);
 app.put('/api/me', auth, api.editMe);
 
 app.get('/api/portfolio', api.getPortfolioItems);
-app.put('/api/portfolio', api.savePortfolioItem);
+app.post('/api/portfolio', api.savePortfolioItem);
 app.get('/api/portfolio/:id', api.getPortfolioItem);
 app.del('/api/portfolio/:id', auth, api.deletePortfolioItem);
+app.put('/api/portfolio/:id', auth, api.editPortfolioItem);
 
 app.listen(3000);
 console.log('Express server listening on port 3000');
