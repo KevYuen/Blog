@@ -1,5 +1,5 @@
 //routing
-angular.module('BLOG', []).
+angular.module('BLOG', ['infinite-scroll']).
   config(['$routeProvider' , function($routeProvider) {
   $routeProvider.
       when('/post', {templateUrl: 'partials/postList', controller: PostListCtrl}).

@@ -1,19 +1,30 @@
 function PostListCtrl($scope, $http, $rootScope, $location){
 	var reqURL = property.url + '/api/post';
 
-	$http.get(reqURL).
-	success(function(data){
-		//console.log(data.Posts);
-		data.Posts.forEach(function(post){
-			var date = new Date(post.date);
-			post.date = date.toDateString();
-			post.body = truncate(post.body, 1400);
+	$scope.items = [];
+	$scope.busy = false;
+  	$scope.offset = '';
+	$scope.nextPage = function(){
+		if ($scope.busy) return;
+    	$scope.busy = true;
+
+    	var url = reqURL + '?offset=' + $scope.offset;
+		$http.get(url).
+		success(function(data){
+			var items = data.Posts;
+			for (var i = 0; i < items.length; i++) {
+				var date = new Date(items[i].date);
+				items[i].date = date.toDateString();
+				items[i].body = truncate(items[i].body, 1400);
+      			$scope.items.push(items[i]);
+     		}
+			$scope.offset = $scope.items.length;
+      		$scope.busy = false;
+		}).
+		error(function(data){
+			console.log(data);
 		});
-		$scope.posts = data.Posts;
-	}).
-	error(function(data){
-		console.log(data);
-	});
+	}
 
 	$scope.DeletePost = function($event, id){
 		var reqURL = property.url + '/api/post/' + id;
@@ -97,7 +108,15 @@ function SummitPostCtrl($scope, $rootScope, $location, $http){
 		}
 
 	$scope.$on('$viewContentLoaded', function(){
-		$('#body').wysihtml5();
+		$('#body').wysihtml5({
+			"font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
+			"emphasis": true, //Italics, bold, etc. Default true
+			"lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+			"html": true, //Button which allows you to edit the generated HTML. Default false
+			"link": true, //Button to insert a link. Default true
+			"image": true, //Button to insert an image. Default true,
+			"color": true //Button to change color of font  
+		});
 	});
 }
 
@@ -105,7 +124,15 @@ function EditPostCtrl($scope, $http, $location, $routeParams, $rootScope){
 	var reqURL = property.url + '/api/post/' + $routeParams.id;
 
 	$scope.$on('$viewContentLoaded', function(){
-		$('#description').wysihtml5();
+		$('#description').wysihtml5({
+				"font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
+				"emphasis": true, //Italics, bold, etc. Default true
+				"lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+				"html": true, //Button which allows you to edit the generated HTML. Default false
+				"link": true, //Button to insert a link. Default true
+				"image": true, //Button to insert an image. Default true,
+				"color": true //Button to change color of font  
+			});
 		$http.get(reqURL).
 			success(function(data){
 			$scope.name = data.post[0].title,

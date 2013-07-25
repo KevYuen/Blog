@@ -9,9 +9,11 @@ block body
 						span(class="icon-bar")
 						span(class="icon-bar")
 						span(class="icon-bar")
-					a(class="brand", href="#") DinoCow
+					a(class="brand", href="/#/post") Kevin Yuen
 					div(class='nav-collapse')
 						ul(class='nav')
+							li
+								a(href='/#/post') Home
 							li 
 								a(href='/#/about') About
 							li 
@@ -31,16 +33,18 @@ block body
 	script(type='text/javascript')
 		window.disqus_shortname = "dinocowblog";
 
-	script(src='resources/js/property.js')
 	script(src='resources/components/jquery/jquery-1.10.2.min.js')
 	script(src='resources/components/angular/angular.min.js')
+	script(src='resources/js/property.js')
+	script(src='resources/js/ng-infinite-scroll.min.js')
 	script(src='resources/js/router.js')
+	script(src='resources/js/truncate.js')
+	script(src='resources/js/AboutController.js')
+	script(src='resources/js/PortfolioController.js')
+	script(src='resources/js/PostController.js')
 	script(src='/resources/js/angular-modal.js')
-	script(src='resources/js/controller.js')
 	script(src="/resources/components/bootstrap/docs/assets/js/bootstrap.min.js")
 	script(src="/resources/components/bootstrap/docs/assets/js/bootstrap-dropdown.js")
 	script(src="/resources/components/bootstrap/js/bootstrap-dropdown.js")
 	script(src="/resources/components/bootstrap/js/wysihtml5-0.3.0_rc2.min.js")
 	script(src="/resources/components/bootstrap/js/bootstrap-wysihtml5-0.0.2.min.js")
-	script(src='//platform.linkedin.com/in.js', type='text/javascript')
-

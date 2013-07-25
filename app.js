@@ -4,12 +4,10 @@ var express = require('express'),
   routes = require('./controllers/routes.js'),
   app = module.exports = express();
  
-mongoose.connect(process.env.Mongo);
-//mongoose.connect('mongodb://localhost/KevBlog');
+mongoose.connect(process.env.Mongo|| "mongodb://localhost/KevBlog");
 
 //authentication
-var auth = express.basicAuth(process.env.USERNAME, process.env.PASSWORD);
-//var auth = express.basicAuth("admin", "Welcome123");
+var auth = express.basicAuth(process.env.USERNAME || "admin" , process.env.PASSWORD || "Welcome123");
 
 //cors middleware
 var allowCrossDomain = function(req, res, next) {
@@ -32,28 +30,30 @@ app.configure(function(){
 });
 
 
-var api = require('./controllers/api.js');
-
+var post = require('./controllers/PostController.js'),
+    portfolio= require('./controllers/PortfolioController.js'),
+    aboutMe = require('./controllers/AboutMeController.js');
+    
 //routes
 app.get('/', routes.index);
 app.get('/partials/:name', routes.partials);
 app.get('/partials/secure/:name', auth, routes.securePartials);
 
 //api calls
-app.get('/api/post', api.getPost);
-app.post('/api/post', auth, api.savePost);
-app.get('/api/post/:id', api.getPostDetail);
-app.del('/api/post/:id', auth, api.deletePost);
-app.put('/api/post/:id', auth, api.editPost);
+app.get('/api/post', post.getPost);
+app.post('/api/post', auth, post.savePost);
+app.get('/api/post/:id', post.getPostDetail);
+app.del('/api/post/:id', auth, post.deletePost);
+app.put('/api/post/:id', auth, post.editPost);
 
-app.get('/api/me', api.getMe);
-app.put('/api/me', auth, api.editMe);
+app.get('/api/me', aboutMe.getMe);
+app.put('/api/me', auth, aboutMe.editMe);
 
-app.get('/api/portfolio', api.getPortfolioItems);
-app.post('/api/portfolio', api.savePortfolioItem);
-app.get('/api/portfolio/:id', api.getPortfolioItem);
-app.del('/api/portfolio/:id', auth, api.deletePortfolioItem);
-app.put('/api/portfolio/:id', auth, api.editPortfolioItem);
+app.get('/api/portfolio', portfolio.getPortfolioItems);
+app.post('/api/portfolio', portfolio.savePortfolioItem);
+app.get('/api/portfolio/:id', portfolio.getPortfolioItem);
+app.del('/api/portfolio/:id', auth, portfolio.deletePortfolioItem);
+app.put('/api/portfolio/:id', auth, portfolio.editPortfolioItem);
 
 app.listen(3000);
 console.log('Express server listening on port 3000');

@@ -1,16 +1,19 @@
-ul(id='posts-list')
-	li(ng-repeat='post in posts')
-		a(href='/#/post/{{post._id}}/{{post.title}}') 
-			span(class='large-font') {{post.title}}
-		div(class="pull-right")
-			span {{post.date}}
-			br
-			span(class='pull-right') {{post.author}}
+div(infinite-scroll='nextPage()', infinite-scroll-disabled='busy', infinite-scroll-distance='1')
+	ul(id='posts-list')
+		li(ng-repeat='post in items')
+			a(href='/#/post/{{post._id}}/{{post.title}}') 
+				span(class='large-font') {{post.title}}
+			div(class="pull-right post-info")
+				span {{post.date}}
+				br
+				span(class='pull-right') {{post.author}}
 
-		p(class='top-margin post-body', ng-bind-html-unsafe="post.body")
-		br
-		ul(class='pull-right')
-			button(class='edit-btn btn btn-danger btn-mini', ng-click="DeletePost($event, post._id)") Delete
-			a(class='edit-btn btn btn-mini btn btn btn-primary', href='/#/post/{{post._id}}/{{post.name}}/edit') Edit
-		br
-		hr
+			p(class='top-margin post-body', ng-bind-html-unsafe="post.body")
+			br
+			a(class='pull-left', href='/#/post/{{post._id}}/{{post.title}}') Click here to full article
+			div(class='pull-right')
+				button(class='edit-btn btn btn-danger btn-mini', ng-click="DeletePost($event, post._id)") Delete
+				a(class='edit-btn btn btn-mini btn btn btn-primary', href='/#/post/{{post._id}}/{{post.name}}/edit') Edit
+			br
+			hr
+	div(ng-show='busy', class='center') loading data...

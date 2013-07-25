@@ -8,7 +8,8 @@ var PortfolioItem = require('../models/portfolioItem.js');
  * receive: {portfolioItems:[{name:string, description: string}] }
  */
 exports.getPortfolioItems = function(req, res){
-	PortfolioItem.find({}).sort({date:-1}).exec(function(err, allItems){
+	var offset = req.query.offset ? req.query.offset : 0;
+	PortfolioItem.find({}).sort({date:-1}).skip(offset).limit(10).exec(function(err, allItems){
 		if (err) res.send({error:err});
 		res.send({portfolioItems: allItems});
 	});

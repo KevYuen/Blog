@@ -1,11 +1,13 @@
-ul(id='portfolio-list')
-	li(ng-repeat='portfolioItem in portfolioItems')
-		a(href='/#/portfolio/{{portfolioItem._id}}/{{portfolioItem.title}}') 
-			span(class='large-font') {{portfolioItem.title}}
+div(infinite-scroll='nextPage()', infinite-scroll-disabled="busy", infinite-scroll-distance='1')
+	ul(id='portfolio-list')
+		li(ng-repeat='portfolioItem in items')
+			a(href='/#/portfolio/{{portfolioItem._id}}/{{portfolioItem.title}}') 
+				span(class='large-font') {{portfolioItem.title}}
 
-		p(class='top-margin', ng-bind-html-unsafe="portfolioItem.description")
-		ul(class='pull-right')
-			button(class='edit-btn btn btn-danger btn-mini', ng-click="DeletePortfolioItem($event, portfolioItem._id)") Delete
-			a(class='edit-btn btn btn-mini btn btn btn-primary', href='/#/portfolio/{{portfolioItem._id}}/{{portfolioItem.name}}/edit') Edit
-		br
-		hr
+			p(class='top-margin post-body', ng-bind-html-unsafe="portfolioItem.description")
+			ul(class='pull-right')
+				button(class='edit-btn btn btn-danger btn-mini', ng-click="DeletePortfolioItem($event, portfolioItem._id)") Delete
+				a(class='edit-btn btn btn-mini btn btn btn-primary', href='/#/portfolio/{{portfolioItem._id}}/{{portfolioItem.name}}/edit') Edit
+			br
+			hr
+	div(ng-show='busy', class='center') loading data...

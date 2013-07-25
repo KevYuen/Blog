@@ -1,7 +1,8 @@
-#content{
-	padding-top: 65px;
+@media (min-width: 987px){
+	#content{
+		padding-top: 65px;
+	}
 }
-
 #post{
 	float: right;
 }
@@ -69,4 +70,10 @@
 
 #about-text{
 	width:60%;
+}
+
+.center{
+	width: 200px;
+	margin-right: auto;
+	margin-left: auto;
 }

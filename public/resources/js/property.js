@@ -1,5 +1,5 @@
 var property = {
-	//url: "http://dinoblog.aws.af.cm"
+	//url: "http://kevblog.aws.af.cm"
 	url: "http://localhost:3000"
 }
 
