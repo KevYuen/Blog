@@ -111,7 +111,35 @@
 					check_attributes: {
 						href:   "url" // important to avoid XSS
 					}
-				}
+				},
+				"label": {},
+				"legend": {},
+				"textarea": {},
+				"html": {},
+				"button": {},
+				"select": {},
+				"option": {},
+				"iframe": {},
+				"form": {},
+				"head": {},
+				"object": {},
+				"noscript": {},
+				"svg": {},
+				"input": {},
+				"meta": {},
+				"video": {},
+				"canvas": {},
+				"source": {},
+				"frame": {},
+				"style": {},
+				"xml": {},
+				"param": {},
+				"audio": {},
+				"link": {},
+				"script": {},
+				"colgroup": {},
+				"comment": {},
+				"header": {}
 			}
 		}
 	};
