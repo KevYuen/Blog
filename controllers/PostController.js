@@ -10,7 +10,7 @@ exports.getPost = function(req, res){
 	var offset = req.query.offset ? req.query.offset : 0;
 	Post.find({}).sort({date:-1}).skip(offset).limit(10).exec(function(err, allPost){
 		if(err) res.send({error: err});
-		//console.log(allPost);
+		console.log(allPost);
 		res.send({Posts: allPost});
 	});
 }

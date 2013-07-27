@@ -15,7 +15,7 @@ function PostListCtrl($scope, $http, $rootScope, $location){
 			for (var i = 0; i < items.length; i++) {
 				var date = new Date(items[i].date);
 				items[i].date = date.toDateString();
-				items[i].body = truncate(items[i].body, 1400);
+				items[i].body = $.truncate(items[i].body, {length:1400, words: true}).trim();
       			$scope.items.push(items[i]);
      		}
 			$scope.offset = $scope.items.length;
@@ -148,7 +148,7 @@ function EditPostCtrl($scope, $http, $location, $routeParams, $rootScope){
 	$scope.saveInfo = function(){
 		var description = $('#description').val();
 		//console.log(body);
-		var data = $.param({title: $scope.title, body: description, hidden: false});
+		var data = $.param({title: $scope.name, body: description, hidden: false});
 		$http({
             url: reqURL,
             method: "PUT",
