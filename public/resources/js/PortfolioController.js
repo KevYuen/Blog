@@ -88,6 +88,7 @@ function PortfolioListCtrl($scope, $http, $rootScope, $location){
 		success(function(data){
 			var items = data.portfolioItems;
 			for(var i = 0; i < items.length; i++){
+				items[i].description = $.truncate(items[i].description, {length:1100, words: true}).trim();
 				$scope.items.push(items[i]);
 			}
 			$scope.offset = $scope.items.length;
