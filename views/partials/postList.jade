@@ -13,7 +13,7 @@ div(infinite-scroll='nextPage()', infinite-scroll-disabled='busy', infinite-scro
 			a(class='pull-left', href='/#/post/{{post._id}}/{{post.title}}') Click here to full article
 			div(class='pull-right')
 				button(class='edit-btn btn btn-danger btn-mini', ng-click="DeletePost($event, post._id)") Delete
-				a(class='edit-btn btn btn-mini btn btn btn-primary', href='/#/post/{{post._id}}/{{post.name}}/edit') Edit
+				a(class='edit-btn btn btn-mini btn btn btn-primary', href='/#/post/{{post._id}}/{{post.title}}/edit') Edit
 			br
 			hr
 	div(ng-show='busy', class='center') loading data...

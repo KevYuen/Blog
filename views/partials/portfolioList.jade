@@ -8,7 +8,7 @@ div(infinite-scroll='nextPage()', infinite-scroll-disabled="busy", infinite-scro
 			a(class='pull-left', href='/#/portfolio/{{portfolioItem._id}}/{{portfolioItem.title}}') Click here to full article
 			ul(class='pull-right')
 				button(class='edit-btn btn btn-danger btn-mini', ng-click="DeletePortfolioItem($event, portfolioItem._id)") Delete
-				a(class='edit-btn btn btn-mini btn btn btn-primary', href='/#/portfolio/{{portfolioItem._id}}/{{portfolioItem.name}}/edit') Edit
+				a(class='edit-btn btn btn-mini btn btn btn-primary', href='/#/portfolio/{{portfolioItem._id}}/{{portfolioItem.title}}/edit') Edit
 			br
 			hr
 	div(ng-show='busy', class='center') loading data...
